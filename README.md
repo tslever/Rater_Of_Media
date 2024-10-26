@@ -1,1 +1,1 @@
-# Video_Game_Ranker
+# Rater_Of_Media
