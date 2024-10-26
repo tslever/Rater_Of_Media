@@ -31,9 +31,10 @@ for first_part_of_isbn in ["", "978", "979"]:
         try:
             response = requests.get(base_url, params = dictionary_of_parameters)
         except Exception as e:
+            print(f"{isbn}, rate_books.py HANDLED A GET REQUEST EXCEPTION, {None}, {None}")
             with open(encoding = "utf-8", file = "books.csv", mode = 'a', newline = '') as csvfile:
                 writer = csv.writer(csvfile)
-                writer.writerow([isbn, "rate_books.py HANDLED AN EXCEPTION", None, None])
+                writer.writerow([isbn, "rate_books.py HANDLED A GET REQUEST EXCEPTION", None, None])
             continue
 
         time.sleep(60 / 100)
@@ -50,13 +51,13 @@ for first_part_of_isbn in ["", "978", "979"]:
                 ratings_count = volume_info.get("ratingsCount", None)
 
                 print(f"{isbn}, {title}, {average_rating}, {ratings_count}")
-
                 with open(encoding = "utf-8", file = "books.csv", mode = 'a', newline = '') as csvfile:
                     writer = csv.writer(csvfile)
                     writer.writerow([isbn, title, average_rating, ratings_count])
 
         else:
 
+            print(f"{isbn}, {None}, {None}, {None}")
             with open(encoding = "utf-8", file = "books.csv", mode = 'a', newline = '') as csvfile:
                 writer = csv.writer(csvfile)
                 writer.writerow([isbn, None, None, None])
