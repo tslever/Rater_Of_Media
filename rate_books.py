@@ -28,10 +28,13 @@ for first_part_of_isbn in ["", "978", "979"]:
             'q': value
         }
 
-        response = requests.get(base_url, params = dictionary_of_parameters)
-        if response.status_code != 200:
-            print(f"I received response {response.json()}.")
-            break
+        try:
+            response = requests.get(base_url, params = dictionary_of_parameters)
+        except Exception as e:
+            with open(encoding = "utf-8", file = "books.csv", mode = 'a', newline = '') as csvfile:
+                writer = csv.writer(csvfile)
+                writer.writerow([isbn, "rate_books.py HANDLED AN EXCEPTION", None, None])
+            continue
 
         time.sleep(60 / 100)
 
@@ -51,3 +54,9 @@ for first_part_of_isbn in ["", "978", "979"]:
                 with open(encoding = "utf-8", file = "books.csv", mode = 'a', newline = '') as csvfile:
                     writer = csv.writer(csvfile)
                     writer.writerow([isbn, title, average_rating, ratings_count])
+
+        else:
+
+            with open(encoding = "utf-8", file = "books.csv", mode = 'a', newline = '') as csvfile:
+                writer = csv.writer(csvfile)
+                writer.writerow([isbn, None, None, None])
