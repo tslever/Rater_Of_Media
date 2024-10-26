@@ -40,7 +40,7 @@ def rate_books(isbn_with_which_to_start: str, path_to_csv_file: str) -> None:
             response = requests.get(base_url, params = dictionary_of_parameters)
         except Exception as e:
             print(f"{isbn}, rate_books.py HANDLED A GET REQUEST EXCEPTION, {None}, {None}")
-            with open(encoding = "utf-8", file = "books.csv", mode = 'a', newline = '') as csvfile:
+            with open(encoding = "utf-8", file = path_to_csv_file, mode = 'a', newline = '') as csvfile:
                 writer = csv.writer(csvfile)
                 writer.writerow([isbn, "rate_books.py HANDLED A GET REQUEST EXCEPTION", None, None])
             continue
@@ -59,14 +59,14 @@ def rate_books(isbn_with_which_to_start: str, path_to_csv_file: str) -> None:
                 ratings_count = volume_info.get("ratingsCount", None)
 
                 print(f"{isbn}, {title}, {average_rating}, {ratings_count}")
-                with open(encoding = "utf-8", file = "books.csv", mode = 'a', newline = '') as csvfile:
+                with open(encoding = "utf-8", file = path_to_csv_file, mode = 'a', newline = '') as csvfile:
                     writer = csv.writer(csvfile)
                     writer.writerow([isbn, title, average_rating, ratings_count])
 
         else:
 
             print(f"{isbn}, {None}, {None}, {None}")
-            with open(encoding = "utf-8", file = "books.csv", mode = 'a', newline = '') as csvfile:
+            with open(encoding = "utf-8", file = path_to_csv_file, mode = 'a', newline = '') as csvfile:
                 writer = csv.writer(csvfile)
                 writer.writerow([isbn, None, None, None])
 
